@@ -15,7 +15,7 @@ BuildRequires:	automake
 BuildRequires:	libtool
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%description 
+%description
 A C language library for reading configuration files.
 
 %description -l pl
@@ -34,7 +34,7 @@ or more), or parts of them. It supports a lot of different data types
 and some types of text interpretations, including \-escapes, ~user,
 $HOME and conditional expansions.
 
-%description -l pl devel
+%description devel -l pl
 Ta biblioteka pozwala na stosunkowo proste czytanie plików
 konfiguracyjnych lub ich czê¶ci. Wspiera wiele ró¿nych typów danych
 oraz niektóre typy interpretacji tekstu, np. \-escapes, ~user, $HOME
@@ -53,7 +53,7 @@ or more), or parts of them. It supports a lot of different data types
 and some types of text interpretations, including \-escapes, ~user,
 $HOME and conditional expansions.
 
-%description -l pl static
+%description static -l pl
 Ta biblioteka pozwala na stosunkowo proste czytanie plików
 konfiguracyjnych lub ich czê¶ci. Wspiera wiele ró¿nych typów danych
 oraz niektóre typy interpretacji tekstu, np. \-escapes, ~user, $HOME
@@ -62,8 +62,8 @@ oraz warunkowe rozwijanie. Ten pakiet zawiera pliki statyczne.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1	
-%patch2 -p1	
+%patch1 -p1
+%patch2 -p1
 
 %build
 rm -f missing
