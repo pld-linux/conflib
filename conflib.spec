@@ -3,10 +3,12 @@ Summary(de):	Library zum Lesen von Konfigurationsdateien
 Name:		conflib
 Version:	0.4.5
 Release:	2
-Copyright:	GPL
+License:	GPL
 Group:		Libraries
-Source:		ftp://ftp.ohse.de/uwe/releases/%{name}-%{version}.tar.gz
-Patch:		conflib-info.patch
+Group(fr):	Librairies
+Group(pl):	Biblioteki
+Source0:	ftp://ftp.ohse.de/uwe/releases/%{name}-%{version}.tar.gz
+Patch0:		conflib-info.patch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description 
@@ -19,25 +21,29 @@ Biblioteka C s³u¿±ca do odczytywania plików konfiguracyjnych.
 Summary:	file for developing programs that use the conflib library
 Summary(de):	Dateien zum Entwickeln von Programmen mit der conflib-Library
 Group:		Development/Libraries
+Group(fr):	Development/Librairies
+Group(pl):	Programowanie/Biblioteki
 Requires:	%{name} = %{version}
 
 %description devel
-This library makes it relativly easy to read configuration files (one or
-more), or parts of them. It supports a lot of different data types and
-some types of text interpretations, including \-escapes, ~user, $HOME
-and conditional expansions.
+This library makes it relativly easy to read configuration files (one
+or more), or parts of them. It supports a lot of different data types
+and some types of text interpretations, including \-escapes, ~user,
+$HOME and conditional expansions.
 
 %package static
 Summary:	file for developing programs that use the conflib library
 Summary(de):	Dateien zum Entwickeln von Programmen mit der conflib-Library
 Group:		Development/Libraries
+Group(fr):	Development/Librairies
+Group(pl):	Programowanie/Biblioteki
 Requires:	%{name}-devel = %{version}
 
 %description static
-This library makes it relativly easy to read configuration files (one or
-more), or parts of them. It supports a lot of different data types and
-some types of text interpretations, including \-escapes, ~user, $HOME
-and conditional expansions.
+This library makes it relativly easy to read configuration files (one
+or more), or parts of them. It supports a lot of different data types
+and some types of text interpretations, including \-escapes, ~user,
+$HOME and conditional expansions.
 
 %prep
 %setup -q
