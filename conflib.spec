@@ -15,7 +15,7 @@ A C language library for reading configuration files.
 %package devel
 Summary:	file for developing programs that use the conflib library
 Summary(de):	Dateien zum Entwickeln von Programmen mit der conflib-Library
-Group:		evelopment/Libraries
+Group:		Development/Libraries
 Requires:	%{name} = %{version}
 
 %description devel
