@@ -6,13 +6,6 @@ Version:	0.4.5
 Release:	5
 License:	GPL
 Group:		Libraries
-Group(de):	Libraries
-Group(es):	Bibliotecas
-Group(fr):	Librairies
-Group(pl):	Biblioteki
-Group(pt_BR):	Bibliotecas
-Group(ru):	Библиотеки
-Group(uk):	Б╕бл╕отеки
 Source0:	ftp://ftp.ohse.de/uwe/releases/%{name}-%{version}.tar.gz
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-cl_build_stanza_array-fix.patch
@@ -33,13 +26,6 @@ Summary:	Files for developing programs that use the conflib library
 Summary(pl):	Pliki do tworzenia programСw wykorzystuj╠cych bibliotekЙ conflib
 Summary(de):	Dateien zum Entwickeln von Programmen mit der conflib-Library
 Group:		Development/Libraries
-Group(de):	Entwicklung/Libraries
-Group(es):	Desarrollo/Bibliotecas
-Group(fr):	Development/Librairies
-Group(pl):	Programowanie/Biblioteki
-Group(pt_BR):	Desenvolvimento/Bibliotecas
-Group(ru):	Разработка/Библиотеки
-Group(uk):	Розробка/Б╕бл╕отеки
 Requires:	%{name} = %{version}
 
 %description devel
@@ -59,13 +45,6 @@ Summary:	Files for developing programs that use the conflib library
 Summary(pl):	Statyczne pliki do tworzenia programСw wykorzystuj╠cych bibliotekЙ conflib
 Summary(de):	Dateien zum Entwickeln von Programmen mit der conflib-Library
 Group:		Development/Libraries
-Group(de):	Entwicklung/Libraries
-Group(es):	Desarrollo/Bibliotecas
-Group(fr):	Development/Librairies
-Group(pl):	Programowanie/Biblioteki
-Group(pt_BR):	Desenvolvimento/Bibliotecas
-Group(ru):	Разработка/Библиотеки
-Group(uk):	Розробка/Б╕бл╕отеки
 Requires:	%{name}-devel = %{version}
 
 %description static
