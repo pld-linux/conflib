@@ -2,7 +2,7 @@ Summary:	configuration file library
 Summary(de):	Library zum Lesen von Konfigurationsdateien
 Name:		conflib
 Version:	0.4.5
-Release:	1
+Release:	2
 Copyright:	GPL
 Group:		Libraries
 Source:		ftp://ftp.ohse.de/uwe/releases/%{name}-%{version}.tar.gz
@@ -61,7 +61,7 @@ gzip -9nf $RPM_BUILD_ROOT%{_infodir}/*info* \
 %post devel
 /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 
-%preun devel
+%postun devel
 /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 
 %clean
