@@ -17,6 +17,9 @@ Source0:	ftp://ftp.ohse.de/uwe/releases/%{name}-%{version}.tar.gz
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-cl_build_stanza_array-fix.patch
 Patch2:		%{name}-ac25x.patch
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description 
