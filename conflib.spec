@@ -69,8 +69,8 @@ oraz warunkowe rozwijanie. Ten pakiet zawiera pliki statyczne.
 rm -f missing
 libtoolize --copy --force
 aclocal
-autoconf
-automake -a -c -f
+%{__autoconf}
+%{__automake}
 %configure2_13
 %{__make}
 
