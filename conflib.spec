@@ -13,12 +13,24 @@ Prereq:		/sbin/install-info /sbin/ldconfig
 A C language library for reading configuration files.
 
 %package devel
-Summary: file for developing programs that use the conflib library
-Group: Development/Libraries
-Requires: conflib = %{PACKAGE_VERSION}
-Summary(de): Dateien zum Entwickeln von Programmen mit der conflib-Library
+Summary:	file for developing programs that use the conflib library
+Summary(de):	Dateien zum Entwickeln von Programmen mit der conflib-Library
+Group:		evelopment/Libraries
+Requires:	%{name} = %{version}
 
 %description devel
+This library makes it relativly easy to read configuration files (one or
+more), or parts of them. It supports a lot of different data types and
+some types of text interpretations, including \-escapes, ~user, $HOME
+and conditional expansions.
+
+%package static
+Summary:	file for developing programs that use the conflib library
+Summary(de):	Dateien zum Entwickeln von Programmen mit der conflib-Library
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}
+
+%description static
 This library makes it relativly easy to read configuration files (one or
 more), or parts of them. It supports a lot of different data types and
 some types of text interpretations, including \-escapes, ~user, $HOME
@@ -65,5 +77,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc README.gz NEWS.gz ChangeLog.gz
 %{_includedir}/*.h
-%{_libdir}/lib*.a
 %{_libdir}/lib*.so
+
+%files static
+%defattr(644,root,root,755)
+%{_libdir}/lib*.a
