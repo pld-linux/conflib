@@ -7,7 +7,6 @@ Copyright:	GPL
 Group:		Libraries
 Source:		ftp://ftp.ohse.de/uwe/releases/%{name}-%{version}.tar.gz
 Patch:		conflib-info.patch
-Prereq:		/sbin/install-info
 Buildroot:	/tmp/%{name}-%{version}-root
 
 %description 
@@ -18,6 +17,7 @@ Summary:	file for developing programs that use the conflib library
 Summary(de):	Dateien zum Entwickeln von Programmen mit der conflib-Library
 Group:		Development/Libraries
 Requires:	%{name} = %{version}
+Prereq:		/sbin/install-info
 
 %description devel
 This library makes it relativly easy to read configuration files (one or
@@ -55,13 +55,14 @@ strip --strip-unneeded $RPM_BUILD_ROOT%{_libdir}/lib*.so.*.*
 gzip -9nf $RPM_BUILD_ROOT%{_infodir}/*info* \
 	README NEWS ChangeLog
 
-%post
-/sbin/ldconfig
-/sbin/install-info %{_infodir}/conflib.info.gz /etc/info-dir
-
+%post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 
-%preun
+%post devel
+/sbin/install-info %{_infodir}/conflib.info.gz /etc/info-dir
+
+
+%preun devel
 if [ "$1" = "0" ]; then
 	/sbin/install-info --delete %{_infodir}/conflib.info.gz /etc/info-dir
 fi
