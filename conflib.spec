@@ -70,7 +70,7 @@ oraz warunkowe rozwijanie. Ten pakiet zawiera pliki statyczne.
 %build
 rm -f missing
 %{__libtoolize}
-aclocal
+%{__aclocal}
 %{__autoconf}
 %{__automake}
 %configure2_13
