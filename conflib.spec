@@ -5,9 +5,10 @@ Version:	0.4.5
 Release:	1
 Copyright:	GPL
 Group:		Libraries
-Source:		ftp://ftp.ohse.de/uwe/releases/conflib-0.4.5.tar.gz
+Source:		ftp://ftp.ohse.de/uwe/releases/%{name}-%{version}.tar.gz
+Patch:		conflib-info.patch
+Prereq:		/sbin/install-info
 Buildroot:	/tmp/%{name}-%{version}-root
-Prereq:		/sbin/install-info /sbin/ldconfig
 
 %description 
 A C language library for reading configuration files.
@@ -38,30 +39,31 @@ and conditional expansions.
 
 %prep
 %setup -q
+%patch -p1
 
 %build
-%GNUconfigure
+LDFLAGS="-s"; export LDFLAGS
+%configure
 make
 
 %install
 rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 
+strip --strip-unneeded $RPM_BUILD_ROOT%{_libdir}/lib*.so.*.*
+
 gzip -9nf $RPM_BUILD_ROOT%{_infodir}/*info* \
 	README NEWS ChangeLog
 
-#	$RPM_BUILD_ROOT%{_mandir}/man*/* \
-
 %post
 /sbin/ldconfig
-/sbin/install-info %{_infodir}/conflib.info.gz %{_infodir}/dir --entry="* Conflib: (conflib.info).         Configuration File Handling."
+/sbin/install-info %{_infodir}/conflib.info.gz /etc/info-dir
 
 %postun -p /sbin/ldconfig
 
 %preun
-if [ $1 = 0 ]; then
-   /sbin/install-info --delete %{_infodir}/history.info.gz %{_infodir}/dir --entry="* Conflib: (conflib.info).         Configuration File Handling."
-readline."
+if [ "$1" = "0" ]; then
+	/sbin/install-info --delete %{_infodir}/conflib.info.gz /etc/info-dir
 fi
 
 %clean
@@ -69,15 +71,15 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-#%{_mandir}/*/*
-%{_infodir}/*info*
-%attr(755,root,root) %{_libdir}/lib*.so.*
+%attr(755,root,root) %{_libdir}/lib*.so.*.*
 
 %files devel
 %defattr(644,root,root,755)
 %doc README.gz NEWS.gz ChangeLog.gz
 %{_includedir}/*.h
-%{_libdir}/lib*.so
+%attr(755,root,root) %{_libdir}/lib*.so
+%attr(755,root,root) %{_libdir}/lib*.la
+%{_infodir}/*info*
 
 %files static
 %defattr(644,root,root,755)
