@@ -80,8 +80,6 @@ rm -f missing
 rm -rf $RPM_BUILD_ROOT
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
-gzip -9nf README NEWS ChangeLog
-
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 
@@ -100,7 +98,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%doc README.gz NEWS.gz ChangeLog.gz
+%doc README NEWS ChangeLog
 %{_includedir}/*.h
 %attr(755,root,root) %{_libdir}/lib*.so
 %attr(755,root,root) %{_libdir}/lib*.la
