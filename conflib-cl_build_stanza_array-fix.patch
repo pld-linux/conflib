@@ -1,0 +1,21 @@
+diff -urN conflib-0.4.5.orig/src/cl_alist.c conflib-0.4.5/src/cl_alist.c
+--- conflib-0.4.5.orig/src/cl_alist.c	Fri Oct  9 19:03:57 1998
++++ conflib-0.4.5/src/cl_alist.c	Tue Jul 25 10:58:11 2000
+@@ -65,8 +65,15 @@
+ 	int count;
+ 	char **array;
+ 
+-	if (!st)
+-		return NULL;
++        if (!st) {
++                conf->in_scanmode = 1;
++                cl_getstanza (conf, NULL, NULL, 0, NULL);
++                conf->in_scanmode = 0;
++                st=conf->stanzas;
++                if (!st)
++                    return NULL;
++        }
++
+ 	for (count=0,st=conf->stanzas;st!=NULL;st=st->next)
+ 	{
+ 		if (0==cl_fnmatch_casefold(pattern, st->stanzaname))
