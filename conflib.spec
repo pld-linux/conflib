@@ -67,7 +67,7 @@ oraz warunkowe rozwijanie. Ten pakiet zawiera pliki statyczne.
 
 %build
 rm -f missing
-libtoolize --copy --force
+%{__libtoolize}
 aclocal
 %{__autoconf}
 %{__automake}
