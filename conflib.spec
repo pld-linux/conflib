@@ -7,6 +7,7 @@ Release:	6
 License:	GPL
 Group:		Libraries
 Source0:	ftp://ftp.ohse.de/uwe/releases/%{name}-%{version}.tar.gz
+# Source0-md5:	301f140d0fbd0b5a225419c101c4c9d1
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-cl_build_stanza_array-fix.patch
 Patch2:		%{name}-ac25x.patch
