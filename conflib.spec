@@ -1,4 +1,5 @@
-Summary:	configuration file library
+Summary:	Configuration file library
+Summary(pl):	Biblioteka plików konfiguracyjnych
 Summary(de):	Library zum Lesen von Konfigurationsdateien
 Name:		conflib
 Version:	0.4.5
@@ -19,7 +20,8 @@ A C language library for reading configuration files.
 Biblioteka C s³u¿±ca do odczytywania plików konfiguracyjnych.
 
 %package devel
-Summary:	file for developing programs that use the conflib library
+Summary:	Files for developing programs that use the conflib library
+Summary(pl):	Pliki do tworzenia programów wykorzystuj±cych bibliotekê conflib
 Summary(de):	Dateien zum Entwickeln von Programmen mit der conflib-Library
 Group:		Development/Libraries
 Group(fr):	Development/Librairies
@@ -32,8 +34,14 @@ or more), or parts of them. It supports a lot of different data types
 and some types of text interpretations, including \-escapes, ~user,
 $HOME and conditional expansions.
 
+%description -l pl devel
+Ta biblioteka pozwala na stosunkowo proste czytanie plików konfiguracyjnych
+lub ich czê¶ci. Wspiera wiele ró¿nych typów danych oraz niektóre typy 
+interpretacji tekstu, np. \-escapes, ~user, $HOME oraz warunkowe rozwijanie.
+
 %package static
-Summary:	file for developing programs that use the conflib library
+Summary:	Files for developing programs that use the conflib library
+Summary(pl):	Statyczne pliki do tworzenia programów wykorzystuj±cych bibliotekê conflib
 Summary(de):	Dateien zum Entwickeln von Programmen mit der conflib-Library
 Group:		Development/Libraries
 Group(fr):	Development/Librairies
@@ -46,13 +54,19 @@ or more), or parts of them. It supports a lot of different data types
 and some types of text interpretations, including \-escapes, ~user,
 $HOME and conditional expansions.
 
+%description -l pl static
+Ta biblioteka pozwala na stosunkowo proste czytanie plików konfiguracyjnych
+lub ich czê¶ci. Wspiera wiele ró¿nych typów danych oraz niektóre typy
+interpretacji tekstu, np. \-escapes, ~user, $HOME oraz warunkowe rozwijanie.
+Ten pakiet zawiera pliki statyczne.
+
 %prep
 %setup -q
 %patch0 -p1
 %patch1 -p1	
 
 %build
-%configure
+%configure2_13
 %{__make}
 
 %install
