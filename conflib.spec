@@ -7,7 +7,7 @@ Copyright:	GPL
 Group:		Libraries
 Source:		ftp://ftp.ohse.de/uwe/releases/%{name}-%{version}.tar.gz
 Patch:		conflib-info.patch
-Buildroot:	/tmp/%{name}-%{version}-root
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description 
 A C language library for reading configuration files.
