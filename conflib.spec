@@ -6,11 +6,17 @@ Version:	0.4.5
 Release:	5
 License:	GPL
 Group:		Libraries
+Group(de):	Libraries
+Group(es):	Bibliotecas
 Group(fr):	Librairies
 Group(pl):	Biblioteki
+Group(pt_BR):	Bibliotecas
+Group(ru):	âÉÂÌÉÏÔÅËÉ
+Group(uk):	â¦ÂÌ¦ÏÔÅËÉ
 Source0:	ftp://ftp.ohse.de/uwe/releases/%{name}-%{version}.tar.gz
-Patch0:		conflib-info.patch
-Patch1:		conflib-cl_build_stanza_array-fix.patch
+Patch0:		%{name}-info.patch
+Patch1:		%{name}-cl_build_stanza_array-fix.patch
+Patch2:		%{name}-ac25x.patch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description 
@@ -24,8 +30,13 @@ Summary:	Files for developing programs that use the conflib library
 Summary(pl):	Pliki do tworzenia programów wykorzystuj±cych bibliotekê conflib
 Summary(de):	Dateien zum Entwickeln von Programmen mit der conflib-Library
 Group:		Development/Libraries
+Group(de):	Entwicklung/Libraries
+Group(es):	Desarrollo/Bibliotecas
 Group(fr):	Development/Librairies
 Group(pl):	Programowanie/Biblioteki
+Group(pt_BR):	Desenvolvimento/Bibliotecas
+Group(ru):	òÁÚÒÁÂÏÔËÁ/âÉÂÌÉÏÔÅËÉ
+Group(uk):	òÏÚÒÏÂËÁ/â¦ÂÌ¦ÏÔÅËÉ
 Requires:	%{name} = %{version}
 
 %description devel
@@ -35,17 +46,23 @@ and some types of text interpretations, including \-escapes, ~user,
 $HOME and conditional expansions.
 
 %description -l pl devel
-Ta biblioteka pozwala na stosunkowo proste czytanie plików konfiguracyjnych
-lub ich czê¶ci. Wspiera wiele ró¿nych typów danych oraz niektóre typy 
-interpretacji tekstu, np. \-escapes, ~user, $HOME oraz warunkowe rozwijanie.
+Ta biblioteka pozwala na stosunkowo proste czytanie plików
+konfiguracyjnych lub ich czê¶ci. Wspiera wiele ró¿nych typów danych
+oraz niektóre typy interpretacji tekstu, np. \-escapes, ~user, $HOME
+oraz warunkowe rozwijanie.
 
 %package static
 Summary:	Files for developing programs that use the conflib library
 Summary(pl):	Statyczne pliki do tworzenia programów wykorzystuj±cych bibliotekê conflib
 Summary(de):	Dateien zum Entwickeln von Programmen mit der conflib-Library
 Group:		Development/Libraries
+Group(de):	Entwicklung/Libraries
+Group(es):	Desarrollo/Bibliotecas
 Group(fr):	Development/Librairies
 Group(pl):	Programowanie/Biblioteki
+Group(pt_BR):	Desenvolvimento/Bibliotecas
+Group(ru):	òÁÚÒÁÂÏÔËÁ/âÉÂÌÉÏÔÅËÉ
+Group(uk):	òÏÚÒÏÂËÁ/â¦ÂÌ¦ÏÔÅËÉ
 Requires:	%{name}-devel = %{version}
 
 %description static
@@ -55,17 +72,23 @@ and some types of text interpretations, including \-escapes, ~user,
 $HOME and conditional expansions.
 
 %description -l pl static
-Ta biblioteka pozwala na stosunkowo proste czytanie plików konfiguracyjnych
-lub ich czê¶ci. Wspiera wiele ró¿nych typów danych oraz niektóre typy
-interpretacji tekstu, np. \-escapes, ~user, $HOME oraz warunkowe rozwijanie.
-Ten pakiet zawiera pliki statyczne.
+Ta biblioteka pozwala na stosunkowo proste czytanie plików
+konfiguracyjnych lub ich czê¶ci. Wspiera wiele ró¿nych typów danych
+oraz niektóre typy interpretacji tekstu, np. \-escapes, ~user, $HOME
+oraz warunkowe rozwijanie. Ten pakiet zawiera pliki statyczne.
 
 %prep
 %setup -q
 %patch0 -p1
 %patch1 -p1	
+%patch2 -p1	
 
 %build
+rm -f missing
+libtoolize --copy --force
+aclocal
+autoconf
+automake -a -c
 %configure2_13
 %{__make}
 
