@@ -1,13 +1,13 @@
-Summary: configuration file library
-Name: conflib
-Version: 0.4.5
-Release: 0
-Copyright: GPL
-Group: Libraries
-Source: ftp://ftp.ohse.de/uwe/releases/conflib-0.4.5.tar.gz
-Buildroot: /tmp/conflib-buildroot
-Prereq: /sbin/install-info /sbin/ldconfig
-Summary(de): Library zum Lesen von Konfigurationsdateien
+Summary:	configuration file library
+Summary(de):	Library zum Lesen von Konfigurationsdateien
+Name:		conflib
+Version:	0.4.5
+Release:	1
+Copyright:	GPL
+Group:		Libraries
+Source:		ftp://ftp.ohse.de/uwe/releases/conflib-0.4.5.tar.gz
+Buildroot:	/tmp/%{name}-%{version}-root
+Prereq:		/sbin/install-info /sbin/ldconfig
 
 %description 
 A C language library for reading configuration files.
@@ -25,31 +25,30 @@ some types of text interpretations, including \-escapes, ~user, $HOME
 and conditional expansions.
 
 %prep
-%setup 
+%setup -q
 
 %build
-CFLAGS="$RPM_OPT_FLAGS" ./configure --prefix=/usr
+%GNUconfigure
 make
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make install prefix=$RPM_BUILD_ROOT/usr
-# Uh ... too ugly to describe? Do the people at redhat _really_
-# update the specs files manually? Every time?
-# ln -sf libconf.so.5.0.1 $RPM_BUILD_ROOT/usr/lib/libconf.so
-(cd $RPM_BUILD_ROOT/usr/lib/ ; ln -fs `echo libconf.*.*.*` libconf.so )
+make install DESTDIR=$RPM_BUILD_ROOT
 
-gzip -nf9 $RPM_BUILD_ROOT/usr/info/*info*
+gzip -9nf $RPM_BUILD_ROOT%{_infodir}/*info* \
+	README NEWS ChangeLog
+
+#	$RPM_BUILD_ROOT%{_mandir}/man*/* \
 
 %post
 /sbin/ldconfig
-/sbin/install-info /usr/info/conflib.info.gz /usr/info/dir --entry="* Conflib: (conflib.info).         Configuration File Handling."
+/sbin/install-info %{_infodir}/conflib.info.gz %{_infodir}/dir --entry="* Conflib: (conflib.info).         Configuration File Handling."
 
 %postun -p /sbin/ldconfig
 
 %preun
 if [ $1 = 0 ]; then
-   /sbin/install-info --delete /usr/info/history.info.gz /usr/info/dir --entry="* Conflib: (conflib.info).         Configuration File Handling."
+   /sbin/install-info --delete %{_infodir}/history.info.gz %{_infodir}/dir --entry="* Conflib: (conflib.info).         Configuration File Handling."
 readline."
 fi
 
@@ -57,12 +56,14 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %files
-#/usr/man/*/*
-/usr/info/*info*
-/usr/lib/lib*.so.*
+%defattr(644,root,root,755)
+#%{_mandir}/*/*
+%{_infodir}/*info*
+%attr(755,root,root) %{_libdir}/lib*.so.*
 
 %files devel
-%doc README NEWS ChangeLog
-/usr/include/*.h
-/usr/lib/lib*.a
-/usr/lib/lib*.so
+%defattr(644,root,root,755)
+%doc README.gz NEWS.gz ChangeLog.gz
+%{_includedir}/*.h
+%{_libdir}/lib*.a
+%{_libdir}/lib*.so
