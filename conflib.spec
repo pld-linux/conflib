@@ -2,7 +2,7 @@ Summary:	configuration file library
 Summary(de):	Library zum Lesen von Konfigurationsdateien
 Name:		conflib
 Version:	0.4.5
-Release:	2
+Release:	3
 License:	GPL
 Group:		Libraries
 Group(fr):	Librairies
