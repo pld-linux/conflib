@@ -1,0 +1,19 @@
+--- conflib-0.4.5/acinclude.m4~	Fri Oct  9 19:03:56 1998
++++ conflib-0.4.5/acinclude.m4	Fri Aug 10 14:57:24 2001
+@@ -1,7 +1,7 @@
+ dnl
+ dnl prüft ob fcntl(F_SETLK) broken ist.
+ dnl
+-AC_DEFUN(UO_FUNC_BROKEN_F_SETLK, [
++AC_DEFUN([UO_FUNC_BROKEN_F_SETLK], [
+ 	AC_MSG_CHECKING([whether fcntl(F_SETLK) is broken])
+ 	AC_CACHE_VAL(uo_cv_setlk_broken,
+ 	AC_TRY_RUN([
+--- conflib-0.4.5/configure.in~	Mon Oct 12 19:59:56 1998
++++ conflib-0.4.5/configure.in	Fri Aug 10 15:04:39 2001
+@@ -89,4 +89,4 @@
+ AC_SUBST(LIBOBJS)
+ AC_SUBST(ERSATZHEADER)
+ 
+-AC_OUTPUT(Makefile tests/Makefile doc/Makefile src/Makefile testsuite/Makefile Specfile)
++AC_OUTPUT(Makefile doc/Makefile src/Makefile testsuite/Makefile Specfile)
