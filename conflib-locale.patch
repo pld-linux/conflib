@@ -1,0 +1,365 @@
+diff -ur conflib-0.4.5-/src/cl_assign.c conflib-0.4.5/src/cl_assign.c
+--- conflib-0.4.5-/src/cl_assign.c	Fri Oct  9 19:03:57 1998
++++ conflib-0.4.5/src/cl_assign.c	Sat Oct 20 21:45:42 2001
+@@ -93,6 +93,45 @@
+ 			"Value %s doesn't match %s %s.",
+ 			val,what,var->rangeexp);
+ }
++
++static int
++cl_in_current_locale(const char *varname)
++{
++	static const char *locale = NULL;
++	static int locale_len = 0;
++	static int locale_first_len = 0;
++	char *p;
++
++	if (locale == NULL) {
++		const char *lp;
++		
++		if ((locale = getenv("LC_MESSAGES")) == NULL &&
++		    (locale = getenv("LC_ALL")) == NULL &&
++		    (locale = getenv("LANG")) == NULL)
++		    	locale = "C";
++		locale_len = strlen(locale);
++		for (lp = locale; *lp; lp++, locale_first_len++)
++			if (*lp == '_')
++				break;
++	}
++
++	p = strchr(varname, '(');
++	if (p == NULL)
++		return 1;	/* yes */
++	p++;
++	if (strcmp(p, "POSIX)") == 0 ||
++	    strcmp(p, "C)") == 0)
++	    	return 1;	/* yes */
++	if (strncmp(p, locale, locale_first_len) == 0 &&
++	    p[locale_first_len] == ')' &&
++	    p[locale_first_len+1] == 0)
++	    	return 2;	/* yes, better */
++	if (strncmp(p, locale, locale_len) == 0 &&
++	    p[locale_len] == ')' &&
++	    p[locale_len+1] == 0)
++	    	return 3;	/* yes, even better */
++	return 0;
++}
+ 	
+ int 
+ cl_assign(cl_file_t *conf, cl_var_t *KonfTab,
+@@ -102,6 +141,7 @@
+ 	const cl_enum_t *enump;
+ 	int override=0;
+ 	int append=0;
++	char *nameptr = NULL;
+ 	if (0==strncmp(varname,"override ",9)) {
+ 		varname+=9;
+ 		override=1;
+@@ -111,6 +151,15 @@
+ 		append=1;
+ 	}
+ 
++	if ((conf->mode&' ') == 0 && strchr(varname, ')')) {
++		if (cl_in_current_locale(varname) == 0)
++			return 0;
++		nameptr = strdup(varname);
++		*strchr(nameptr, '(') = 0;
++		varname = nameptr;
++		override = 1;
++	}
++	
+ 	for(Vp=KonfTab;Vp->varname;Vp++)
+ 	{
+ 		char c1=tolower(*varname);
+@@ -125,7 +174,7 @@
+ 			{
+ 				Vp=cl_unalias(conf,KonfTab,Vp);
+ 				if (!Vp)
+-					return 1;
++					goto return_1;
+ 			}
+ 			if (Vp->flags & CL_WARNING) {
+ 				cl_warning(CL_WARN(conf,Vp),"variable %s should not be used",
+@@ -139,7 +188,7 @@
+ 					if (cl_fnmatch(Vp->rangeexp,value)!=0)
+ 					{
+ 						cl_as_dontmatch(conf,Vp,"wildcard", value);
+-						return 0;
++						goto return_0;
+ 					}
+ 				}
+ 				else 
+@@ -151,12 +200,12 @@
+ 						cl_warning(CL_ERR(conf,Vp),
+ 							"cannot compile regular expression %s",
+ 							Vp->rangeexp);
+-						return -1;
++						goto return_m1;
+ 					}
+ 					if (regexec(&exp,value,0,NULL,0)!=0)
+ 					{
+ 						cl_as_dontmatch(conf,Vp,"regular expression", value);
+-						return 0;
++						goto return_0;
+ 					}
+ #else
+ 					/* ### was hier zurückliefern? */
+@@ -170,7 +219,7 @@
+ 				{
+ 					cl_warning(CL_ERR(conf,Vp),
+ 						"CL_ENUM nullpointer dereference!");
+-					return 1;
++					goto return_1;
+ 				}
+ 				Vp->flags |= CL_MAY_SAVE;
+ 				for (enump=(const cl_enum_t *) Vp->secdata; enump->magic; enump++)
+@@ -178,13 +227,13 @@
+ 					if (!strcasecmp(enump->magic,value))
+ 					{
+ 						*(long*)Vp->adr = enump->value;
+-						return 0;
++						goto return_0;
+ 					}
+ 				}
+ 				cl_warning(CL_WARN(conf,Vp),
+ 					"unknown value %s for enumeration",value);
+ 				*(long*)Vp->adr = (long) 0;
+-				return 0; /* ### is this good? */
++				goto return_0; /* ### is this good? */
+ 				break;
+ 			case CL_BITFIELD:
+ 				{
+@@ -192,7 +241,7 @@
+ 					if (!Vp->secdata) {
+ 						cl_warning(CL_ERR(conf,Vp),
+ 							"CL_BITFIELD nullpointer dereference!");
+-						return 1;
++						goto return_1;
+ 					}
+ 					Vp->flags |= CL_MAY_SAVE;
+ 					if (override)
+@@ -234,7 +283,7 @@
+ 						}
+ 						p=q;
+ 					}
+-					return 0;
++					goto return_0;
+ 					break;
+ 				}
+ 			case CL_STRING:	/* Stringvariable */
+@@ -243,7 +292,7 @@
+ 					size_t l2=strlen(value);
+ 					char *s=malloc(l1+l2+2);
+ 					if (!s)
+-						return -1;
++						goto return_m1;
+ 					Vp->flags |= CL_MAY_SAVE;
+ 					memcpy(s,*(char **)Vp->adr,l1);
+ 					s[l1]=' ';
+@@ -252,14 +301,14 @@
+ 						free (*(char **)Vp->adr);
+ 					*(char **)Vp->adr=s;
+ 					Vp->flags|=CL_MALLOCED;
+-					return 0;
++					goto return_0;
+ 				}
+ 				if (0==cl_dup_to(Vp,value))
+ 				{
+ 					Vp->flags |= CL_MAY_SAVE;
+-					return 0;
++					goto return_0;
+ 				}
+-				return -1;
++				goto return_m1;
+ 			case CL_DIRNAME:	/* Stringvariable */
+ 				{
+ 					size_t l;
+@@ -267,7 +316,7 @@
+ 					l=strlen(value);
+ 					buf=malloc(l+2);
+ 					if (!buf)
+-						return -1;
++						goto return_m1;
+ 					memcpy(buf,value,l+1);
+ 					if (buf[l-1]!='/') {
+ 						buf[l]='/';
+@@ -278,7 +327,7 @@
+ 						size_t l1=strlen(*(char **)Vp->adr);
+ 						char *s=malloc(l1+l+1);
+ 						if (!s)
+-							return -1;
++							goto return_m1;
+ 						Vp->flags |= CL_MAY_SAVE;
+ 						memcpy(s,*(char **)Vp->adr,l1);
+ 						memcpy(s+l1,buf,l+1);
+@@ -287,23 +336,23 @@
+ 						*(char **)Vp->adr=s;
+ 						free(buf);
+ 						Vp->flags|=CL_MALLOCED;
+-						return 0;
++						goto return_0;
+ 					}
+ 					if (0==cl_dup_to(Vp,buf))
+ 					{
+ 						Vp->flags |= CL_MAY_SAVE;
+ 						free(buf);
+-						return 0;
++						goto return_0;
+ 					}
+ 					free(buf);
+ 				}
+-				return -1;
++				goto return_m1;
+ 			case CL_CHAR:
+ 				if (value[1]!='\0')
+ 					cl_warning(CL_WARN(conf,Vp),"char desired, got string %s", value);
+ 				Vp->flags |= CL_MAY_SAVE;
+ 				*(char *)Vp->adr = *value;
+-				return 0;
++				goto return_0;
+ 			case CL_NUM:
+ 				Vp->flags |= CL_MAY_SAVE;
+ 				{
+@@ -314,7 +363,7 @@
+ 						*(long*)Vp->adr = strtol(value,NULL,0);
+ 					}
+ 				}
+-				return 0;
++				goto return_0;
+ 			case CL_NUMSHORT:
+ 				Vp->flags |= CL_MAY_SAVE;
+ 				{
+@@ -334,11 +383,11 @@
+ 					}
+ 					*(short*)Vp->adr = (int) lo;
+ 				}
+-				return 0;
++				goto return_0;
+ 			case CL_BOOLEAN:
+ 				Vp->flags |= CL_MAY_SAVE;
+ 				*(int *)Vp->adr=cl_convert2bool(value);
+-				return 0;
++				goto return_0;
+ 			case CL_ARRAY:	/* Stringarray */
+ 				{
+ 					register int Cnt;
+@@ -354,10 +403,10 @@
+ 					else
+ 					{
+ 						cl_warning(CL_WARN(conf,Vp),"Array %s is full",Vp->varname);
+-						return -1;
++						goto return_m1;
+ 					}
+ 					Vp->flags |= CL_MAY_SAVE;
+-					return 0;
++					goto return_0;
+ 				}
+ 				break;
+ 			case CL_ALIAS:
+@@ -421,11 +470,11 @@
+ 						Vp->flags|=CL_MALLOCED;
+ 					} /* while sep */
+ 					Vp->flags |= CL_MAY_SAVE;
+-					return 0;
++					goto return_0;
+ 				}
+ 				break;
+ 			} /* switch */
+-			return 0;
++			goto return_0;
+ 		}
+ 	} /* for */
+ 
+@@ -445,17 +494,17 @@
+ 				{
+ 					cl_warning(CL_ERR(conf,Vp),"out of memory");
+ 					dieser->inhalt=old;
+-					return -1;
++					goto return_m1;
+ 				}
+ 				free(old);
+-				return 0;
++				goto return_0;
+ 			}
+ 		}
+ 		dieser=malloc(sizeof(cl_ulist_t));
+ 		if (!dieser)
+ 		{
+ 			cl_warning(CL_ERR(conf,Vp),"out of memory");
+-			return 0;
++			goto return_0;
+ 		}
+ 		dieser->varname=strdup(varname);
+ 		dieser->inhalt=strdup(value);
+@@ -465,7 +514,7 @@
+ 			free(dieser->inhalt);
+ 			free(dieser);
+ 			cl_warning(CL_ERR(conf,Vp),"out of memory");
+-			return -1;
++			goto return_m1;
+ 		}
+ 		dieser->next=NULL;
+ 		if (!last)
+@@ -473,12 +522,22 @@
+ 		else
+ 			last->next=dieser;
+ 			
+-		return 0;
++		goto return_0;
+ 	}
+ 	
+ 	if (conf->report_unknown)
+ 		cl_warning(CL_WARN(conf,Vp),
+ 			"unknown variable '%s'",varname);
++return_0:
++	free(nameptr);
+ 	return 0;
++	
++return_1:
++	free(nameptr);
++	return 1;
++
++return_m1:
++	free(nameptr);
++	return -1;
+ }
+ 
+diff -ur conflib-0.4.5-/src/cl_openconf.c conflib-0.4.5/src/cl_openconf.c
+--- conflib-0.4.5-/src/cl_openconf.c	Fri Oct  9 19:03:57 1998
++++ conflib-0.4.5/src/cl_openconf.c	Sat Oct 20 21:16:56 2001
+@@ -94,6 +94,13 @@
+ cl_openconf (const char *fname, const char *mode)
+ {
+ 	cl_file_t *c;
++	int localized = 0;
++	
++	if (*mode == 'l') {
++		localized++;
++		mode++;
++	}
++	
+ 	if (*mode != 'r' && *mode != 'w') {
+ 		errno=EINVAL;
+ 		return NULL;
+@@ -152,6 +159,9 @@
+ 		errno=ENOMEM;
+ 		return NULL;
+ 	}
++
++	if (localized)
++		c->mode &= ~' ';
+ 
+ 	return c;
+ }
+diff -ur conflib-0.4.5-/src/cl_putstanza.c conflib-0.4.5/src/cl_putstanza.c
+--- conflib-0.4.5-/src/cl_putstanza.c	Fri Oct  9 19:03:57 1998
++++ conflib-0.4.5/src/cl_putstanza.c	Sat Oct 20 21:16:24 2001
+@@ -166,7 +166,7 @@
+ 	char indent[256]="\t"; /* default to use if we don't read any line */
+ 	char *backupfname;
+ 
+-	if (conf->mode!='w')
++	if ((conf->mode|' ')!='w')
+ 	{
+ 		cl_warning(CL_ERR(conf,NULL),
+ 			"file is readonly");
