@@ -20,7 +20,6 @@ Summary:	file for developing programs that use the conflib library
 Summary(de):	Dateien zum Entwickeln von Programmen mit der conflib-Library
 Group:		Development/Libraries
 Requires:	%{name} = %{version}
-Prereq:		/usr/sbin/fix-info-dir
 
 %description devel
 This library makes it relativly easy to read configuration files (one or
@@ -62,10 +61,10 @@ gzip -9nf $RPM_BUILD_ROOT%{_infodir}/*info* \
 %postun -p /sbin/ldconfig
 
 %post devel
-/usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
+[ -x /usr/sbin/fix-info-dir ] && /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 
 %postun devel
-/usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
+[ -x /usr/sbin/fix-info-dir ] && /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 
 %clean
 rm -rf $RPM_BUILD_ROOT
