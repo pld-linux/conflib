@@ -65,10 +65,10 @@ gzip -9nf README NEWS ChangeLog
 %postun -p /sbin/ldconfig
 
 %post devel
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
+%fix_info_dir
 
 %postun devel
-[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
+%fix_info_dir
 
 %clean
 rm -rf $RPM_BUILD_ROOT
