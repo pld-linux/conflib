@@ -1,0 +1,35 @@
+diff -Nru conflib-0.4.5/doc/conflib.texi conflib-0.4.5.new/doc/conflib.texi
+--- conflib-0.4.5/doc/conflib.texi	Fri Oct  9 19:03:57 1998
++++ conflib-0.4.5.new/doc/conflib.texi	Mon Sep  6 01:34:25 1999
+@@ -14,9 +14,10 @@
+ @synindex tp cp
+ @ifinfo
+ @format
+-START-INFO-DIR-ENTRY
+-* Conflib: (conflib.info).         Configuration File Handling
+-END-INFO-DIR-ENTRY
++@dircategory Libraries:
++@direntry
++* Conflib: (conflib)			Configuration File Handling
++@end direntry
+ @end format
+ @end ifinfo
+ 
+@@ -608,7 +608,7 @@
+ 
+ @item CL_ENUM
+ an enumeration. @var{adr} should be of type @code{long *}.
+-@xref{enumerations} for more information.
++@xref{enumerations}, for more information.
+ 
+ @item CL_ALIAS
+ an alias for another variable, very often used for compatability
+@@ -653,7 +653,7 @@
+ @end table
+ @end deftp
+ 
+-The @var{secdata} element of an enumeration variable (@xref{variable definition}) 
++The @var{secdata} element of an enumeration variable (@xref{variable definition},)
+ points to an array of cl_enum_t. This array is terminated with an
+ element with @var{magic} @code{NULL}.
+ 
