@@ -10,7 +10,7 @@ diff -Nru conflib-0.4.5/doc/conflib.texi conflib-0.4.5.new/doc/conflib.texi
 -END-INFO-DIR-ENTRY
 +@dircategory Libraries:
 +@direntry
-+* Conflib: (conflib)			Configuration File Handling
++* Conflib: (conflib).			Configuration File Handling
 +@end direntry
  @end format
  @end ifinfo
