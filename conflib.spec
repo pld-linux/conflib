@@ -17,7 +17,7 @@ Summary:	file for developing programs that use the conflib library
 Summary(de):	Dateien zum Entwickeln von Programmen mit der conflib-Library
 Group:		Development/Libraries
 Requires:	%{name} = %{version}
-Prereq:		/sbin/install-info
+Prereq:		/usr/sbin/fix-info-dir
 
 %description devel
 This library makes it relativly easy to read configuration files (one or
@@ -59,13 +59,10 @@ gzip -9nf $RPM_BUILD_ROOT%{_infodir}/*info* \
 %postun -p /sbin/ldconfig
 
 %post devel
-/sbin/install-info %{_infodir}/conflib.info.gz /etc/info-dir
-
+/usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 
 %preun devel
-if [ "$1" = "0" ]; then
-	/sbin/install-info --delete %{_infodir}/conflib.info.gz /etc/info-dir
-fi
+/usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 
 %clean
 rm -rf $RPM_BUILD_ROOT
