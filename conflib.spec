@@ -2,13 +2,14 @@ Summary:	configuration file library
 Summary(de):	Library zum Lesen von Konfigurationsdateien
 Name:		conflib
 Version:	0.4.5
-Release:	3
+Release:	4
 License:	GPL
 Group:		Libraries
 Group(fr):	Librairies
 Group(pl):	Biblioteki
 Source0:	ftp://ftp.ohse.de/uwe/releases/%{name}-%{version}.tar.gz
 Patch0:		conflib-info.patch
+Patch1:		conflib-cl_build_stanza_array-fix.patch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description 
@@ -47,7 +48,8 @@ $HOME and conditional expansions.
 
 %prep
 %setup -q
-%patch -p1
+%patch0 -p1
+%patch1 -p1	
 
 %build
 LDFLAGS="-s"; export LDFLAGS
