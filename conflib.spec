@@ -3,13 +3,14 @@ Summary(pl):	Biblioteka plików konfiguracyjnych
 Summary(de):	Library zum Lesen von Konfigurationsdateien
 Name:		conflib
 Version:	0.4.5
-Release:	5
+Release:	6
 License:	GPL
 Group:		Libraries
 Source0:	ftp://ftp.ohse.de/uwe/releases/%{name}-%{version}.tar.gz
 Patch0:		%{name}-info.patch
 Patch1:		%{name}-cl_build_stanza_array-fix.patch
 Patch2:		%{name}-ac25x.patch
+Patch3:		%{name}-locale.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
@@ -64,6 +65,7 @@ oraz warunkowe rozwijanie. Ten pakiet zawiera pliki statyczne.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 rm -f missing
