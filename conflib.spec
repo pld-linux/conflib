@@ -12,6 +12,9 @@ Buildroot:	/tmp/%{name}-%{version}-root
 %description 
 A C language library for reading configuration files.
 
+%description -l pl
+Biblioteka C s³u¿±ca do odczytywania plików konfiguracyjnych.
+
 %package devel
 Summary:	file for developing programs that use the conflib library
 Summary(de):	Dateien zum Entwickeln von Programmen mit der conflib-Library
