@@ -11,9 +11,13 @@
  	AC_TRY_RUN([
 --- conflib-0.4.5/configure.in~	Mon Oct 12 19:59:56 1998
 +++ conflib-0.4.5/configure.in	Fri Aug 10 15:04:39 2001
-@@ -89,4 +89,4 @@
- AC_SUBST(LIBOBJS)
+@@ -86,7 +87,7 @@
+ AC_MSG_RESULT($fu_cv_sys_working_fnmatch)
+ UO_FUNC_BROKEN_F_SETLK
+ 
+-AC_SUBST(LIBOBJS)
  AC_SUBST(ERSATZHEADER)
  
 -AC_OUTPUT(Makefile tests/Makefile doc/Makefile src/Makefile testsuite/Makefile Specfile)
-+AC_OUTPUT(Makefile doc/Makefile src/Makefile testsuite/Makefile Specfile)
++AC_CONFIG_FILES([Makefile doc/Makefile src/Makefile testsuite/Makefile Specfile])
++AC_OUTPUT
