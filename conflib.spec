@@ -3,7 +3,7 @@ Summary(pl):	Biblioteka plików konfiguracyjnych
 Summary(de):	Library zum Lesen von Konfigurationsdateien
 Name:		conflib
 Version:	0.4.5
-Release:	6
+Release:	7
 License:	GPL
 Group:		Libraries
 Source0:	ftp://ftp.ohse.de/uwe/releases/%{name}-%{version}.tar.gz
@@ -69,18 +69,22 @@ oraz warunkowe rozwijanie. Ten pakiet zawiera pliki statyczne.
 %patch3 -p1
 
 %build
-rm -f missing
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
+%{__autoheader}
 %{__automake}
-%configure2_13
+%configure
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+%clean
+rm -rf $RPM_BUILD_ROOT
 
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
@@ -91,19 +95,16 @@ rm -rf $RPM_BUILD_ROOT
 %postun devel
 [ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir -c %{_infodir} >/dev/null 2>&1
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
 %files
 %defattr(644,root,root,755)
+%doc AUTHORS ChangeLog NEWS README TODO
 %attr(755,root,root) %{_libdir}/lib*.so.*.*
 
 %files devel
 %defattr(644,root,root,755)
-%doc README NEWS ChangeLog
-%{_includedir}/*.h
 %attr(755,root,root) %{_libdir}/lib*.so
 %{_libdir}/lib*.la
+%{_includedir}/*.h
 %{_infodir}/*info*
 
 %files static

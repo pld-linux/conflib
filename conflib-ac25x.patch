@@ -1,11 +1,10 @@
 --- conflib-0.4.5/configure.in~	2003-10-31 00:17:42.000000000 +0100
 +++ conflib-0.4.5/configure.in	2003-10-31 00:18:14.000000000 +0100
-@@ -85,7 +85,7 @@
+@@ -85,7 +85,6 @@
  AC_MSG_RESULT($fu_cv_sys_working_fnmatch)
  UO_FUNC_BROKEN_F_SETLK
  
 -AC_SUBST(LIBOBJS)
-+AC_SUBST(AC_LIBOBJ)
  AC_SUBST(ERSATZHEADER)
  
 -AC_OUTPUT(Makefile tests/Makefile doc/Makefile src/Makefile testsuite/Makefile)
