@@ -29,7 +29,7 @@ Summary:	Files for developing programs that use the conflib library
 Summary(pl):	Pliki do tworzenia programów wykorzystuj±cych bibliotekê conflib
 Summary(de):	Dateien zum Entwickeln von Programmen mit der conflib-Library
 Group:		Development/Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 
 %description devel
 This library makes it relativly easy to read configuration files (one
@@ -48,7 +48,7 @@ Summary:	Files for developing programs that use the conflib library
 Summary(pl):	Statyczne pliki do tworzenia programów wykorzystuj±cych bibliotekê conflib
 Summary(de):	Dateien zum Entwickeln von Programmen mit der conflib-Library
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}
+Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 This library makes it relativly easy to read configuration files (one
