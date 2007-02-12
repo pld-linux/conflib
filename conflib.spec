@@ -1,6 +1,6 @@
 Summary:	Configuration file library
-Summary(pl):	Biblioteka plików konfiguracyjnych
-Summary(de):	Library zum Lesen von Konfigurationsdateien
+Summary(pl.UTF-8):   Biblioteka plikÃ³w konfiguracyjnych
+Summary(de.UTF-8):   Library zum Lesen von Konfigurationsdateien
 Name:		conflib
 Version:	0.4.5
 Release:	7
@@ -21,13 +21,13 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 A C language library for reading configuration files.
 
-%description -l pl
-Biblioteka C s³u¿±ca do odczytywania plików konfiguracyjnych.
+%description -l pl.UTF-8
+Biblioteka C sÅ‚uÅ¼Ä…ca do odczytywania plikÃ³w konfiguracyjnych.
 
 %package devel
 Summary:	Files for developing programs that use the conflib library
-Summary(pl):	Pliki do tworzenia programów wykorzystuj±cych bibliotekê conflib
-Summary(de):	Dateien zum Entwickeln von Programmen mit der conflib-Library
+Summary(pl.UTF-8):   Pliki do tworzenia programÃ³w wykorzystujÄ…cych bibliotekÄ™ conflib
+Summary(de.UTF-8):   Dateien zum Entwickeln von Programmen mit der conflib-Library
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
@@ -37,16 +37,16 @@ or more), or parts of them. It supports a lot of different data types
 and some types of text interpretations, including \-escapes, ~user,
 $HOME and conditional expansions.
 
-%description devel -l pl
-Ta biblioteka pozwala na stosunkowo proste czytanie plików
-konfiguracyjnych lub ich czê¶ci. Wspiera wiele ró¿nych typów danych
-oraz niektóre typy interpretacji tekstu, np. \-escapes, ~user, $HOME
+%description devel -l pl.UTF-8
+Ta biblioteka pozwala na stosunkowo proste czytanie plikÃ³w
+konfiguracyjnych lub ich czÄ™Å›ci. Wspiera wiele rÃ³Å¼nych typÃ³w danych
+oraz niektÃ³re typy interpretacji tekstu, np. \-escapes, ~user, $HOME
 oraz warunkowe rozwijanie.
 
 %package static
 Summary:	Files for developing programs that use the conflib library
-Summary(pl):	Statyczne pliki do tworzenia programów wykorzystuj±cych bibliotekê conflib
-Summary(de):	Dateien zum Entwickeln von Programmen mit der conflib-Library
+Summary(pl.UTF-8):   Statyczne pliki do tworzenia programÃ³w wykorzystujÄ…cych bibliotekÄ™ conflib
+Summary(de.UTF-8):   Dateien zum Entwickeln von Programmen mit der conflib-Library
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
@@ -56,10 +56,10 @@ or more), or parts of them. It supports a lot of different data types
 and some types of text interpretations, including \-escapes, ~user,
 $HOME and conditional expansions.
 
-%description static -l pl
-Ta biblioteka pozwala na stosunkowo proste czytanie plików
-konfiguracyjnych lub ich czê¶ci. Wspiera wiele ró¿nych typów danych
-oraz niektóre typy interpretacji tekstu, np. \-escapes, ~user, $HOME
+%description static -l pl.UTF-8
+Ta biblioteka pozwala na stosunkowo proste czytanie plikÃ³w
+konfiguracyjnych lub ich czÄ™Å›ci. Wspiera wiele rÃ³Å¼nych typÃ³w danych
+oraz niektÃ³re typy interpretacji tekstu, np. \-escapes, ~user, $HOME
 oraz warunkowe rozwijanie. Ten pakiet zawiera pliki statyczne.
 
 %prep
