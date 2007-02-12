@@ -1,6 +1,6 @@
 Summary:	Configuration file library
-Summary(pl.UTF-8):   Biblioteka plików konfiguracyjnych
-Summary(de.UTF-8):   Library zum Lesen von Konfigurationsdateien
+Summary(pl.UTF-8):	Biblioteka plików konfiguracyjnych
+Summary(de.UTF-8):	Library zum Lesen von Konfigurationsdateien
 Name:		conflib
 Version:	0.4.5
 Release:	7
@@ -26,8 +26,8 @@ Biblioteka C służąca do odczytywania plików konfiguracyjnych.
 
 %package devel
 Summary:	Files for developing programs that use the conflib library
-Summary(pl.UTF-8):   Pliki do tworzenia programów wykorzystujących bibliotekę conflib
-Summary(de.UTF-8):   Dateien zum Entwickeln von Programmen mit der conflib-Library
+Summary(pl.UTF-8):	Pliki do tworzenia programów wykorzystujących bibliotekę conflib
+Summary(de.UTF-8):	Dateien zum Entwickeln von Programmen mit der conflib-Library
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
@@ -45,8 +45,8 @@ oraz warunkowe rozwijanie.
 
 %package static
 Summary:	Files for developing programs that use the conflib library
-Summary(pl.UTF-8):   Statyczne pliki do tworzenia programów wykorzystujących bibliotekę conflib
-Summary(de.UTF-8):   Dateien zum Entwickeln von Programmen mit der conflib-Library
+Summary(pl.UTF-8):	Statyczne pliki do tworzenia programów wykorzystujących bibliotekę conflib
+Summary(de.UTF-8):	Dateien zum Entwickeln von Programmen mit der conflib-Library
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
