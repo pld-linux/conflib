@@ -3,7 +3,7 @@ Summary(pl.UTF-8):	Biblioteka plików konfiguracyjnych
 Summary(de.UTF-8):	Library zum Lesen von Konfigurationsdateien
 Name:		conflib
 Version:	0.4.5
-Release:	7
+Release:	8
 License:	GPL
 Group:		Libraries
 Source0:	ftp://ftp.ohse.de/uwe/releases/%{name}-%{version}.tar.gz
