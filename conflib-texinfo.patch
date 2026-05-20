@@ -1,0 +1,79 @@
+--- conflib-0.4.5/doc/conflib.texi.orig	2026-05-20 22:25:58.318333425 +0200
++++ conflib-0.4.5/doc/conflib.texi	2026-05-20 22:25:58.393825585 +0200
+@@ -5,6 +5,7 @@
+ @set update-month August 1998
+ 
+ @setfilename conflib.info
++@documentencoding ISO-8859-1
+ @settitle The Conflib Manual @value{version}
+ @setchapternewpage odd
+ @smallbook
+@@ -920,7 +921,7 @@
+ an unknown variable variable. At the time i write this down it has
+ the following members:
+ 
+-@table @bullet
++@table @code
+ @item char *varname
+ the name of the variable
+ 
+@@ -1000,7 +1001,7 @@
+ @cindex bugs
+ @cindex todo
+ 
+-@table @bullet
++@table @code
+ @item getpwent etc are used. 
+ 
+ @item the array handling is broken
+--- conflib-0.4.5/doc/cl_getstanza.texi.orig	2026-05-20 22:25:58.320349769 +0200
++++ conflib-0.4.5/doc/cl_getstanza.texi	2026-05-20 22:25:58.393881077 +0200
+@@ -6,7 +6,7 @@
+ file pointed to by @var{handle} into @var{tab}.
+ 
+ @var{flags} is a bitfield consisting of the following bits:
+-@table @bullet
++@table @code
+ @item CL_GET_NOINCLUDE
+ If this bit is set @code{include}- and @code{includestanza}-statements
+ in @var{handle} will be ignored.
+--- conflib-0.4.5/doc/cl_setvar.texi.orig	2026-05-20 22:25:58.322228054 +0200
++++ conflib-0.4.5/doc/cl_setvar.texi	2026-05-20 22:25:58.393919322 +0200
+@@ -5,7 +5,7 @@
+ file. It looks in @var{tab} for the variable name.
+ 
+ @var{flags} is a bitfield consisting of the following bits:
+-@table @bullet
++@table @code
+ @item CL_GET_NOINCLUDE
+ If this bit is set @code{include}- and @code{includestanza}-statements
+ in @var{handle} will be ignored.
+--- conflib-0.4.5/doc/tinterp.texi.orig	2026-05-20 22:25:58.324267571 +0200
++++ conflib-0.4.5/doc/tinterp.texi	2026-05-20 22:25:58.393976065 +0200
+@@ -128,7 +128,7 @@
+ 
+ @code{bedingung} kann sein:
+ 
+-@table @bullet
++@table @code
+ @item something==something-else
+ Das Ergebnis der Bedingung ist wahr, wenn die Interpretationsergebnisse
+ von @code{something} und @code{something-else} gleich sind.
+@@ -274,7 +274,7 @@
+ @end table
+ 
+ Returncodes:
+-@table @bullet
++@table @code
+ @item TIP_NOTDONE
+ Die Funktion ist nicht aktiv geworden. tip_interpret soll versuchen, 
+ andere Routinen zu finden.
+@@ -294,7 +294,7 @@
+ @subsection Standardersatzroutinen der Library
+ Folgende Ersatzroutinen enthaelt die Library:
+ 
+-@table @bullet
++@table @code
+ @item tip_dollar
+ Ersetzung durch Environmentvariablen, erwartet als @code{magic} das
+ Zeichen @code{$}. Siehe @ref{$-Ersetzung}.

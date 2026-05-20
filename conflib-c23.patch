@@ -1,0 +1,42 @@
+Remove K&R-style redeclarations of standard library functions that conflict
+with prototypes from <string.h>/<stdlib.h>. Add a missing prototype for
+cl_setvar so libtest.c (and any consumer) compiles under modern GCC, which
+treats implicit declarations as hard errors by default (C23).
+
+--- conflib-0.4.5/src/cl_warning.c.orig
++++ conflib-0.4.5/src/cl_warning.c
+@@ -71,11 +71,7 @@
+ void exit ();
+ #endif
+ 
+-#if HAVE_STRERROR
+-#  ifndef strerror       /* On some systems, strerror is a macro */
+-char *strerror ();
+-#  endif
+-#else
++#if !HAVE_STRERROR
+ extern char *sys_errlist[];
+ extern int sys_nerr;
+ static const char *
+--- conflib-0.4.5/src/cl_strtol.c.orig
++++ conflib-0.4.5/src/cl_strtol.c
+@@ -67,8 +67,6 @@
+ 	}								\
+       while (0)
+ 
+-__unsigned long int __strtol ();
+-
+ /* FIXME: comment.  */
+ 
+ strtol_error
+--- conflib-0.4.5/src/conflib.h.orig
++++ conflib-0.4.5/src/conflib.h
+@@ -168,6 +168,9 @@
+ int cl_putstanza(cl_file_t *handle, cl_var_t *tab, const char *stanza,
+ 				  long flags, cl_ulist_t *unknowns);
+ 
++int cl_setvar(cl_var_t *tab, char *zeile, long flags, cl_ulist_t **unknowns);
++void cl_put_one(FILE *file, const cl_var_t *v);
++
+ char ** cl_build_stanza_array(const char *pattern, cl_file_t *conf);
+ void cl_delete_stanza_array(char **array);
